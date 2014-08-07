@@ -1,0 +1,68 @@
+<html>
+ <head>
+    <title>Calling Web Service from jQuery</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnCallWebService").click(function (event) {
+                var wsUrl = "http://localhost:8080/ONPPensionistaServices/services/PensionistaServiceImpl?wsdl";
+
+                var soapRequest =
+				'<?xml version="1.0" encoding="UTF-8"?> \
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> \
+	<soapenv:Body> \
+		<esPensionista xmlns="http://impl.ws.service.web.onpmovil.onp.gob.pe"> \
+			<pensionistaRequest> \
+				<ns1:esPensionista xsi:nil="true" xmlns:ns1="http://bean.web.onpmovil.onp.gob.pe"/> \
+				<ns2:numeroDocumento xmlns:ns2="http://bean.web.onpmovil.onp.gob.pe">'+ $("#txtNumDoc").val() +'</ns2:numeroDocumento> \
+				<ns3:tipoDocumento xmlns:ns3="http://bean.web.onpmovil.onp.gob.pe">'+ $("#txtTipoDoc").val() +'</ns3:tipoDocumento> \
+			</pensionistaRequest> \
+		</esPensionista> \
+	</soapenv:Body> \
+</soapenv:Envelope>';
+			
+			
+			
+				//alert("Check SOAP: " + soapRequest );
+
+
+                $.ajax({
+                    type: "POST",
+                    url: wsUrl,
+                    contentType: "text/xml; charset=\"utf-8\"",
+                    dataType: "xml",
+                    data: soapRequest,
+					beforeSend: function (xhr) {
+                    xhr.setRequestHeader('SOAPAction', '');
+					},
+					crossDomain: true,
+                    success: processSuccess,
+                    error: processError
+                });
+
+            });
+        });
+
+        function processSuccess(data, status, req) {
+            if (status == "successs")
+                //$("#response").text($(req.responseXML).find("HelloResult").text());
+				$("#response").text($(req.responseXML).find("pensionistaResult").text());
+        }
+
+        function processError(data, status, req) {
+            alert("Error:"+req.responseText + " " + "Estado: "+status);
+        }  
+
+    </script>
+</head>
+<body>
+    <h3>
+        Calling Web Services with jQuery/AJAX
+    </h3>
+    Ingresar Datos:
+    <input id="txtTipoDoc" type="text" /></br>
+	<input id="txtNumDoc" type="text" />
+    <input id="btnCallWebService" value="Call web service" type="button" />
+    <div id="response" />
+</body>
+</html>

@@ -71,7 +71,7 @@
                     },
                     error: function(xhr, textStatus, errorThrown)
                     {
-                        console.log(xhr, textStatus, errorThrown + 'error');
+                        console.log(xhr, textStatus, errorThrown + 'error XXXXX');
                         return false;
                     },
                     complete: function()

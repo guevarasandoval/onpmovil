@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>ONP - ¿Estoy afiliado?</title>
+		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if lt IE 9]><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+		<script src="res/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="res/js/jquery.mobile-1.4.3.min.js" type="text/javascript"></script>  
+		<script src="res/js/jquery.jsonp-2.4.0.min.js" type="text/javascript"></script> 
+        <link href="res/css/jquery.mobile-1.4.3.min.css" rel="stylesheet" type="text/css"/>
+        <link href="res/css/reset.css" rel="stylesheet" type="text/css" />
+        <link href="res/css/general.css" rel="stylesheet" type="text/css" />
+        <script src="res/js/cordova.js" type="text/javascript"></script> 
+		<script type='text/javascript'>//<![CDATA[ 
+        $(function(){
+			
+			var content = $.mobile.getScreenHeight() - $(".ui-header").outerHeight() - $(".ui-footer").outerHeight() - $(".ui-content").outerHeight() + $(".ui-content").height() -30;
+			$(".ui-content").height(content);
+			
+        });//]]>  
+		</script>
+	</head>
+	<body>
+	    <div data-role="page" id="servicios">
+		<div data-role="header">
+      	             <a href="index.html" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-left">Inicio</a>
+                     <h1>SERVICIOS</h1>
+                </div>
+            <div data-role="content" align="center" style="vertical-align: middle">
+                    <div class="servicio_boton">
+                            <a href="estoy_afiliado.html"></a>
+                    </div>
+                    <br /> <br />
+                    <span class="estoy_afiliado">¿Estoy Afiliado?</span><br>
+                    <span class="consulta_si_estas">Consulta si estás en ONP</span>
+            </div>
+            <div data-role="footer">
+                <h4>Mobile ONP © Copyright 2014</h4>
+            </div>
+        </div>
+	</body>
+</html>

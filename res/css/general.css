@@ -1,0 +1,208 @@
+
+body{
+	font-family: 'Arial';
+}
+
+.ui-page .ui-header {
+    background: #17448e !important;
+	border-bottom: 1px solid #FFF;
+	height:40px;
+	width:100%;
+	font-size: 16px;
+	text-align: center;
+	color:#FFF;
+}
+
+.ui-page .ui-footer {
+	background-color: #e7e7e7;
+	border-top: 1px solid #b6b6b6;
+	color: #959595;
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	position:fixed; 
+	bottom:0 !important; 
+	height:30px;
+}
+
+.ui-page .ui-content {
+	border-top: 1px solid #17448e;
+	vertical-align:middle;
+	margin-bottom:-1px;
+	margin-top: -1px;
+}
+
+.ui-button{
+	background: #17448e;
+	color: white;
+	font-size: 14px;
+	border: 0;
+} 
+.ui-button:hover{
+	background: #555555;
+	color: white;
+	border: 1px solid yellow;
+}
+
+
+/*Index*/
+.bienvenidos{
+		color: #555555;
+		font-size: 28px;
+		margin-top: 30px;
+		text-align: center;
+		overflow: hidden;
+		font-weight: bold;
+}
+.logo_onp_home{
+		background: url(../../images/320x480/logo_home_320x480.png) center no-repeat;
+		height: 90px;
+		margin-top: 20px;
+		margin-bottom: 50px;
+		overflow: hidden;
+		text-align: center;
+}
+.home_botones{
+		margin: 0 auto;
+		overflow: hidden;
+		width: 300px;
+}
+.btn_servicios{
+		float: right;
+		height: 140px;
+		width: 150px;
+}
+.btn_servicios a{
+			background: url(../../images/320x480/icon_servicio_over320x480.png) top no-repeat;
+			color: #555555;
+			display: block;
+			font-size: 16px;
+			font-style: italic;
+			font-weight: bold;
+			padding-top: 120px;
+			text-align: center;
+			text-decoration: none;
+}
+.btn_servicios a:hover{
+			background: url(../../images/320x480/icon_servicio_out320x480.png) top no-repeat;
+			color: #17448e;
+}
+.btn_contacto{
+		float: left;
+		height: 140px;
+		width: 150px;
+}
+.btn_contacto a{
+			background: url(../../images/320x480/icon_contacto_over320x480.png) top no-repeat;
+			color: #555555;
+			display: block;
+			font-size: 16px;
+			font-style: italic;
+			font-weight: bold;
+			padding-top: 120px;
+			text-align: center;
+			text-decoration: none;
+}
+.btn_contacto a:hover{
+			background: url(../../images/320x480/icon_contacto_out320x480.png) top no-repeat;
+			color: #17448e;
+}
+
+/*Contacto*/
+.contacto_subti{
+	font-size: 14px;
+	padding-left: 20px;
+}
+.contacto_contenido{
+	line-height: 16px;
+	margin: 15px 0 35px;
+}
+.contacto_oficinas{
+	background: url(../../images/320x480/icon_oficinas_de_atencion320x480.png) left no-repeat;
+}
+.contacto_central{
+	background: url(../../images/320x480/icon_central_telefonica320x480.png) left no-repeat;
+}
+.contacto_correo{
+	background: url(../../images/320x480/icon_correo_electronico320x480.png) left no-repeat;
+}
+.contacto_botonirweb{
+	margin: 0 auto 20px auto;
+	width: 80%;
+}
+.boton_azul a{
+	font-size: 16px;
+}
+
+/*Servicios*/
+.servicio_boton{
+	width: 105px;
+	margin-top: 30px;
+}
+.servicio_boton a{
+	background: url(../../images/320x480/icon_estoy_afiliado_over320x480.png);
+	display: block;
+	height: 105px;
+}
+.servicio_boton a:hover{
+	background: url(../../images/320x480/icon_estoy_afiliado_out320x480.png);
+}
+
+.estoy_afiliado{
+	color: #555555;
+	font-weight: bold;
+}
+
+.consulta_si_estas{
+	color: #555555;
+	font-weight: bold;
+}
+
+/*Formulario*/
+
+.infoOnp{
+	background-color: #c8d8ab;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #555555;
+	display: block;
+	font-size: 22px;
+	font-style: italic;
+	margin-bottom: 40px;
+	padding: 15px 0;
+	text-align: center;
+	width: 100%;
+}
+
+.labelOnp{
+	color: #555555;
+	display: block;
+	font-size: 22px;
+	font-style: italic;
+	margin-bottom: 15px;
+}
+
+
+.selectOnp{
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			background-color: #f0f0e1;
+			border: 1px solid #cecebf;
+			color: #555555;
+			font-size: 20px;
+			width: 100%;
+}
+
+.inputOnp{
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			background-color: #f0f0e1;
+			border: 1px solid #cecebf;
+			color: #555555;
+			font-size: 22px;
+			padding: 3px 0 3px 30px;
+			width: 100%;
+}

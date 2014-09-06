@@ -1,0 +1,92 @@
+
+.ui-page .ui-header {
+    background: #17448e !important;
+	border-bottom: 1px solid #FFF;
+	height:40px;
+	width:100%;
+	font-size: 16px;
+	text-align: center;
+	color:#FFF;
+}
+
+.ui-page .ui-footer {
+	background-color: #e7e7e7;
+	border-top: 1px solid #b6b6b6;
+	color: #959595;
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	position:fixed; 
+	bottom:0 !important; 
+	height:30px;
+}
+
+.ui-page .ui-content {
+	background-color: #ffffff;
+	border-top: 1px solid #17448e;
+	vertical-align:middle;
+}
+
+.ui-page .ui-content .ui-btn{
+	background: #17448e;
+	color: white;
+} 
+.ui-page .ui-content .ui-btn:hover{
+	background: #555555;
+	color: white;
+	border: 1px solid yellow;
+}
+
+body{
+	font-family: 'Arial';
+}
+
+
+
+a:link{
+	text-decoration: none;
+	color:#555555;
+}
+
+a:visited{
+	text-decoration: none;
+	color:#555555;
+}
+
+a:active{
+	text-decoration: none;
+	color:#555555;
+}
+
+a:hover{
+	text-decoration: none;
+	color:#17448e;
+}
+
+/*Contacto*/
+.contacto_subti{
+	color: #17448e;
+	font-size: 18px;
+}
+
+.contacto_contenido{
+	color: #555555;
+	display: block;
+	font-size: 16px;	
+	text-align: justify;
+}
+
+/*Afiliado*/
+.infoOnp{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #555555;
+	display: block;
+	font-size: 22px;
+	font-style: italic;
+	margin-bottom: 40px;
+	padding: 15px 0;
+	text-align: center;
+	width: 100%;
+}

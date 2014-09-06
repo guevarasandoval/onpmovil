@@ -1,46 +1,259 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Aplic. Web de jQuery Mobile</title>
-<link href="res/css/jquery.mobile-1.4.3.min.css" rel="stylesheet" type="text/css" />
-<script src="res/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="res/js/jquery.mobile-1.4.3.min.js" type="text/javascript"></script>  
-<script src="res/js/jquery.jsonp-2.4.0.min.js" type="text/javascript"></script> 
-<link href="res/css/reset.css" rel="stylesheet" type="text/css" />
-<link href="res/css/general.css" rel="stylesheet" type="text/css" />
-		<script type='text/javascript'>//<![CDATA[ 
-        $(function(){
+	<head>
+		<meta charset="utf-8">
+		<title>ONP - &iquest;Estoy afiliado?</title>
+		<script src="res/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="res/js/jquery.mobile-1.4.3.min.js" type="text/javascript"></script>  
+		<script src="res/js/jquery.jsonp-2.4.0.min.js" type="text/javascript"></script> 
+        <link href="res/css/jquery.mobile-1.4.3.min.css" rel="stylesheet" type="text/css"/>
+        <link href="res/css/pe.gob.onp.movil.estilo.css" rel="stylesheet" type="text/css" />
+		<script type='text/javascript'>
 			
-			var content = $.mobile.getScreenHeight() - $(".ui-header").outerHeight() - $(".ui-footer").outerHeight() - $(".ui-content").outerHeight() + $(".ui-content").height();
+            $(document).ready(function () {
+				
+				var content = $.mobile.getScreenHeight() - $(".ui-header").outerHeight() - $(".ui-footer").outerHeight() - $(".ui-content").outerHeight() + $(".ui-content").height();
+		
+				$(".ui-content").height(content);
+							
+                $.support.cors = true;
+                $.mobile.allowCrossDomainPages = true;
 
-			$(".ui-content").height(content);
-			
-        });//]]>  
-		</script>
-</head> 
-<body> 
+                $('#afiliado').on('pageshow', function (event, ui) {
+                    $("#response").css("background-color","#FFFFFF");
+                    $("#response").text("");
+                });
 
-<div data-role="page" id="index" data-theme="c">
-	<div data-role="header">
-		<h1>ONP</h1>
-	</div>
-	<div data-role="content" id="index-content" align="center">	
-				<p class="bienvenidos">BIENVENIDOS</p>
-				<div class="logo_onp_home">
-				</div>
-				<div class="home_botones">
-					<div class="btn_servicios">
-					<a href="servicios.html">Servicios</a>
-					</div>
-					<div class="btn_contacto">
-						<a href="contacto.html">Contacto</a>
-					</div>
-				</div>
-	</div>
-	<div data-role="footer">
-        <h4>Mobile ONP © Copyright 2014</h4>
-	</div>
- </div>
-</body>
+                $("#imgServicios")
+                    .mouseover(function() { 
+                        $(this).attr("src", "images/icon_servicio_over320x480.png");
+                    })
+                    .mouseout(function() {
+                        $(this).attr("src", "images/icon_servicio_out320x480.png");
+                });
+
+
+                $("#imgContacto")
+                    .mouseover(function() { 
+                        $(this).attr("src", "images/icon_contacto_over320x480.png");
+                    })
+                    .mouseout(function() {
+                        $(this).attr("src", "images/icon_contacto_out320x480.png");
+                }); 
+
+
+                $("#imgServicio")
+                    .mouseover(function() { 
+                        $(this).attr("src", "images/icon_estoy_afiliado_over320x480.png");
+                    })
+                    .mouseout(function() {
+                        $(this).attr("src", "images/icon_estoy_afiliado_out320x480.png");
+                }); 
+                    
+                    $("#cmdConsumir").click(function (event){
+                        var tipoDocumento = document.getElementById("tipoDocumento").value;
+                        var numeroDocumento = document.getElementById("numeroDocumento").value;
+                        if(tipoDocumento == ""){
+                            $("#response").css("background-color","#FC0");  
+                            $("#response").text("Seleccione el tipo de documento.");
+                            //$("#response").show();
+                            return;
+                        }
+                        if(numeroDocumento == ""){
+                            $("#response").css("background-color","#FC0");  
+                            $("#response").text("Ingrese el n\u00famero de documento.");                     
+                            //$("#response").show();                            
+                            return;
+                        }
+                        var params = "?tipoDocumento="+tipoDocumento+"&numeroDocumento="+numeroDocumento;
+                        $.ajax({
+                            url: 'http://app.onp.gob.pe/WSMovilesQA/MAFServiceServlet'+params,
+                            cache: true,
+                            type: 'GET',
+                            async: false, // must be set to false
+                            success: function (data, success) {
+                                //$("#response").show();
+                                $("#response").css("background-color","#c8d8ab");
+                                var resultado = data.resultado;
+                                if(resultado == 'ONP')                              
+                                    $("#response").text("Ud. est\u00e1 afiliado a la ONP.");
+                                else if(resultado == 'SPP')
+                                    $("#response").text("Ud. est\u00e1 afiliado al Sistema Privado de Pensiones.");
+                                else if(resultado == "NOINFO")
+                                    $("#response").text("No contamos con informaci\u00f3n de su Sistema Previsional.");
+                                else
+                                    $("#response").text("Ocurri\u00f3 un error inesperado.");
+                            },
+                            dataType: 'jsonp',
+                            error :function( jqxhr, textStatus, error ) { 
+                                //var err = textStatus + ', ' + error;
+                                //alert(err);
+                            },
+                            complete: function (jqxhr, textStatus ){
+                                //alert( "complete: " + JSON.stringify(jqxhr)+" "+ textStatus );
+                            }
+                        });                 
+                    });			
+            });
+
+        </script>
+	</head>
+	<body>
+    	<div data-role="page" id="index" data-fullscreen="true">
+            <div data-role="header">
+                <h1>ONP</h1>
+            </div>
+            <div data-role="content" id="index-content" align="center">
+                <h2>BIENVENIDOS</h2>
+                <img src="images/logo_home_320x480.png" /><br /> <br />
+                <table width="90%" align="center">
+                    <tr>
+                        <td width="50%" align="center" height="120" valign="middle">
+                            <a href="#servicios" border="0"><img src="images/icon_servicio_out320x480.png" id="imgServicios" /></a>
+                        </td>
+                        <td width="50%" align="center" valign="middle">
+                            <a href="#contacto" border="0"><img src="images/icon_contacto_out320x480.png" id="imgContacto" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="#servicios">Servicios</a></td>
+                        <td align="center"><a href="#contacto">Cont&aacute;cto</a></td>
+                    </tr>
+                </table>
+            </div>            
+            <div data-role="footer">
+				<h4>Mobile ONP &copy; Copyright 2014</h4>
+			</div>
+        </div>
+
+        <div data-role="page" id="contacto" data-fulscreen="true">
+            <div data-role="header">
+                <a href="#index" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-left">Inicio</a>
+                <h1>CONTACTO</h1>            
+            </div>
+            <div data-role="content" align="center">
+                <br />
+                <table width="90%" align="center">
+                    <tr>
+                        <td><div class="contacto_subti"><img src="images/icon_oficinas_de_atencion320x480.png" />&nbsp;&nbsp;OFICINAS DE ATENCI&Oacute;N</div></td>
+                    </tr>
+                    <tr>
+                        <td>                            
+                            <div class="contacto_contenido"><br />
+                            Si usted desea realizar alguna consulta o tr&aacute;mite, ac&eacute;rquese a nuestras oficinas a nivel nacional de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. y el tercer s&aacute;bado de cada mes de 7:00 a.m. a 1:00 p.m., donde nuestro personal especializado lo atender&aacute; gustosamente.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="contacto_subti"><br />
+                                <img src="images/icon_central_telefonica320x480.png" />&nbsp;&nbsp;CENTRAL TELEF&Oacute;NICA ONPTEL
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="contacto_contenido"><br />
+                            Si usted desea realizar alguna consulta telefónica, h&aacute;galo a trav&eacute;s de nuestro servicio ONPTEL de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. donde nuestro personal especializado atender&aacute; su consulta. Lima y provincias: 595-0510 / 0-801-12345 (costo de llamada local).
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="contacto_subti"><br />
+                                <img src="images/icon_correo_electronico320x480.png" />&nbsp;&nbsp;CORREO ELECTR&Oacute;NICO
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="contacto_contenido"><br />
+                            Si usted tiene un comentario, sugerencia o consulta. Puede hacerlo a trav&eacute;s de nuestro portal Web. 
+                            </div>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <a href="http:www.onp.gob.pe" data-role="button" rel="external">IR A LA WEB</a>
+                        </td>
+                    </tr>           
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>                          
+                </table>
+            </div>
+            <div data-role="footer">
+                <h4>Mobile ONP &copy; Copyright 2014</h4>
+            </div>
+        </div>
+
+        <div data-role="page" id="servicios" data-fullscreen="true">
+            <div data-role="header">
+                <a href="#index" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-left">Inicio</a>
+                <h1>SERVICIOS</h1>
+            </div>
+            <div data-role="content" id="servicios-content" align="center">
+                <a href="#afiliado"><img src="images/icon_estoy_afiliado_out320x480.png" id="imgServicio" /></a><br /><br />
+                <strong>&iquest;Estoy Afiliado?</strong><br />
+                Consulta si est&aacute;s en ONP
+            </div>            
+            <div data-role="footer">
+                <h4>Mobile ONP &copy; Copyright 2014</h4>
+            </div>
+        </div>        
+
+        <div data-role="page" id="afiliado" data-fullscreen="true" data-init="limpiarInfo">
+            <div data-role="header">
+                        <a href="#index" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-left">Inicio</a>
+                        <h1>&iquest;ESTOY AFILIADO?</h1>
+            </div>
+            <div data-role="content" id="afiliado-content" align="center">
+                    <form>
+                        <label for="tipoDocumento" class="labelOnp">Tipo de Documento (*)</label>
+                        <select id="tipoDocumento" name="numeroDocumento">
+                            <option value="00">DOC. TRIB. SIN RUC</option>
+                            <option value="01" selected>D.N.I.</option>
+                            <option value="02">LIBRETA ELECTORAL</option>
+                            <option value="03">CARNET FF.PP.</option>
+                            <option value="04">CARNET FF.AA.</option>
+                            <option value="05">CARNET EXTRANJERIA</option>
+                            <option value="06">PASAPORTE</option>
+                            <option value="07">D.P.I</option>
+                            <option value="08">R.U.C 11 DIG.</option>
+                            <option value="09">R.U.C 8 DIG.</option>
+                            <option value="10">LIBRETA TRIBUTARIA</option>
+                            <option value="11">S/N IDENT. FISCAL</option>
+                            <option value="12">REG. PATRONAL</option>
+                            <option value="13">CED. DIPLOMATICA</option>
+                            <option value="14">PARTIDA NACIMIENTO</option>
+                            <option value="15">LIBRETA MILITAR</option>
+                            <option value="16">AUTOGENERADO</option>
+                            <option value="17">DOC. EDU. SUP.</option>
+                            <option value="18">TRAB. MEN. EDAD</option>
+                            <option value="19">TRAB. MENOR EDAD</option>
+                            <option value="20">INTERDICTO</option>
+                            <option value="21">COD. INSC. EMPL. TH</option>
+                            <option value="22">LIC. CONDUCIR</option>
+                            <option value="23">NO DEFINIDO</option>
+                            <option value="24">NRO. REG. SUNAT</option>
+                            <option value="25">CARNET SOL. REFUG.</option>
+                        </select>
+                        <br />
+                        <label for="numeroDocumento" class="labelOnp">N&uacute;mero de Documento (*)</label>
+                        <input type="text" name="numeroDocumento" id="numeroDocumento">
+                        <br />
+                        <div>
+                            <input type="button" value="CONSULTAR" id="cmdConsumir" name="cmdConsumir" />
+                        </div>
+                        <br />
+                       <div id="response" class="infoOnp" >   
+                       </div>
+                    </form>       
+            </div>            
+            <div data-role="footer">
+                <h4>Mobile ONP &copy; Copyright 2014</h4>
+            </div>
+        </div>        
+        
+	</body>
 </html>

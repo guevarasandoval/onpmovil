@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> -->
+         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=high-dpi" />
 		<title>ONP - &iquest;Estoy afiliado?</title>        
 		<script src="res/js/jquery-2.1.1.min.js" type="application/javascript"></script>
 		<script src="res/js/jquery.mobile-1.4.3.min.js" type="application/javascript"></script>  
@@ -55,13 +56,13 @@
                         var tipoDocumento = document.getElementById("tipoDocumento").value;
                         var numeroDocumento = document.getElementById("numeroDocumento").value;
                         if(tipoDocumento == ""){
-                            $("#response").css("background-color","#FC0");  
+                            $("#response").css("background-color","#ffefbe");  
                             $("#response").text("Seleccione el tipo de documento.");
                             //$("#response").show();
                             return;
                         }
                         if(numeroDocumento == ""){
-                            $("#response").css("background-color","#FC0");  
+                            $("#response").css("background-color","#ffefbe");  
                             $("#response").text("Ingrese el n\u00famero de documento.");                     
                             //$("#response").show();                            
                             return;
@@ -155,7 +156,7 @@
                     <tr>
                         <td>
                             <div class="contacto_contenido"><br />
-                            Si usted desea realizar alguna consulta telefónica, h&aacute;galo a trav&eacute;s de nuestro servicio ONPTEL de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. donde nuestro personal especializado atender&aacute; su consulta. Lima y provincias: 595-0510 / 0-801-12345 (costo de llamada local).
+                            Si usted desea realizar alguna consulta telefónica, h&aacute;galo a trav&eacute;s de nuestro servicio ONPTEL de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. donde nuestro personal especializado atender&aacute; su consulta. Lima y provincias: <a href="tel:5950510">595-0510</a> / <a href="tel:080112345">0-801-12345</a> (costo de llamada local).
                             </div>
                         </td>
                     </tr>
@@ -175,7 +176,7 @@
                     </tr>   
                     <tr>
                         <td>
-                            <a href="http:www.onp.gob.pe" data-role="button" rel="external">IR A LA WEB</a>
+                            <a href="http://www.onp.gob.pe" data-role="button" rel="external">IR A LA WEB</a>
                         </td>
                     </tr>           
                     <tr>
@@ -196,7 +197,7 @@
             <div data-role="content" id="servicios-content" align="center">
                 <a href="#afiliado"><img src="images/icon_estoy_afiliado_out320x480.png" id="imgServicio" /></a><br /><br />
                 <strong>&iquest;Estoy Afiliado?</strong><br />
-                Consulta si est&aacute;s en ONP
+                Consulta si est&aacute;s en la ONP
             </div>            
             <div data-role="footer">
                 <h4>Mobile ONP &copy; Copyright 2014</h4>

@@ -1,0 +1,1 @@
+Para que funcione en Windows Phone compilar con PhoneGap 2.9.

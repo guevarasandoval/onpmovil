@@ -1,10 +1,14 @@
 
+ui.page{
+	background: #ffffff;
+}
+
 .ui-page .ui-header {
     background: #17448e !important;
 	border-bottom: 1px solid #FFF;
 	height:40px;
 	width:100%;
-	font-size: 16px;
+	font-size: 13px;
 	text-align: center;
 	color:#FFF;
 }
@@ -31,11 +35,19 @@
 	background: #17448e;
 	color: white;
 } 
+
+.ui-page .ui-content .ui-select{
+	background-color: #e7e7e7;
+	border:0px;
+	color:#000;
+}
+
 .ui-page .ui-content .ui-btn:hover{
 	background: #555555;
 	color: white;
 	border: 1px solid yellow;
 }
+
 
 body{
 	font-family: 'Arial';
@@ -89,4 +101,10 @@ a:hover{
 	padding: 15px 0;
 	text-align: center;
 	width: 100%;
+}
+
+.selectOnp{
+	background:#e7e7e7;
+	background-color: #e7e7e7;
+	color:#000;
 }

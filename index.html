@@ -1,15 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>ONP - &iquest;Estoy afiliado?</title>
-		<script src="res/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-		<script src="res/js/jquery.mobile-1.4.3.min.js" type="text/javascript"></script>  
-		<script src="res/js/jquery.jsonp-2.4.0.min.js" type="text/javascript"></script> 
+        <!-- Android: Descomentar la linea siguiente para este sistema operativo-->
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
+        <!--Windows Phone : descomentar la linea siguiente para Windows phone y comenta la linea de Android-->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=high-dpi" />
+		<title>ONP - &iquest;Estoy afiliado?</title>        
+		<script src="res/js/jquery-2.1.1.min.js" type="application/javascript"></script>
+		<script src="res/js/jquery.mobile-1.4.3.min.js" type="application/javascript"></script>  
+		<script src="res/js/jquery.jsonp-2.4.0.min.js" type="application/javascript"></script> 
         <link href="res/css/jquery.mobile-1.4.3.min.css" rel="stylesheet" type="text/css"/>
         <link href="res/css/pe.gob.onp.movil.estilo.css" rel="stylesheet" type="text/css" />
-		<script type='text/javascript'>
+		<script type='application/javascript'>
 			
+            $(document).keypress(function(e){
+                if(e.which == 13){
+                    return false;
+                }
+            });
+
             $(document).ready(function () {
 				
 				var content = $.mobile.getScreenHeight() - $(".ui-header").outerHeight() - $(".ui-footer").outerHeight() - $(".ui-content").outerHeight() + $(".ui-content").height();
@@ -17,7 +27,7 @@
 				$(".ui-content").height(content);
 							
                 $.support.cors = true;
-                $.mobile.allowCrossDomainPages = true;
+                $.mobile.allowCrossDomainPages = true;                
 
                 $('#afiliado').on('pageshow', function (event, ui) {
                     $("#response").css("background-color","#FFFFFF");
@@ -49,51 +59,54 @@
                     .mouseout(function() {
                         $(this).attr("src", "images/icon_estoy_afiliado_out320x480.png");
                 }); 
-                    
-                    $("#cmdConsumir").click(function (event){
-                        var tipoDocumento = document.getElementById("tipoDocumento").value;
-                        var numeroDocumento = document.getElementById("numeroDocumento").value;
-                        if(tipoDocumento == ""){
-                            $("#response").css("background-color","#FC0");  
-                            $("#response").text("Seleccione el tipo de documento.");
-                            //$("#response").show();
-                            return;
+
+
+                $("#cmdConsumir").click(function (event){  
+                    $.mobile.loading("show",{html:"<img src='images/cargando.gif' />"});
+                    var tipoDocumento = document.getElementById("tipoDocumento").value;
+                    var numeroDocumento = document.getElementById("numeroDocumento").value;
+                    if(tipoDocumento == ""){
+                        $.mobile.loading("hide");
+                        $("#response").css("background-color","#ffefbe");  
+                        $("#response").text("Seleccione el tipo de documento.");
+                        return;
+                    }
+                    if(numeroDocumento == ""){
+                        $.mobile.loading("hide");
+                        $("#response").css("background-color","#ffefbe");  
+                        $("#response").text("Ingrese el n\u00famero de documento.");  
+                        return;
+                    }
+                    var params = "?tipoDocumento="+tipoDocumento+"&numeroDocumento="+numeroDocumento;
+                    $.ajax({
+                        url: 'http://app.onp.gob.pe/WSMovilesQA/MAFServiceServlet'+params,
+                        cache: true,
+                        type: 'GET',
+                        async: false, // must be set to false
+                        success: function (data, success) {
+                            $("#response").css("background-color","#c8d8ab");
+                            var resultado = data.resultado;
+                            if(resultado == 'ONP')                              
+                                $("#response").text("Ud. est\u00e1 afiliado a la ONP.");
+                            else if(resultado == 'SPP')
+                                $("#response").text("Ud. est\u00e1 afiliado al Sistema Privado de Pensiones.");
+                            else if(resultado == "NOINFO")
+                                $("#response").text("No contamos con informaci\u00f3n de su Sistema Previsional.");
+                            else
+                                $("#response").text("Ocurri\u00f3 un error inesperado.");
+                        },
+                        dataType: 'jsonp',
+                        error :function( jqxhr, textStatus, error ) { 
+                            //var err = textStatus + ', ' + error;
+                            //alert(err);
+                        },
+                        complete: function (jqxhr, textStatus ){
+                            //alert( "complete: " + JSON.stringify(jqxhr)+" "+ textStatus );
+                            $.mobile.loading("hide");
                         }
-                        if(numeroDocumento == ""){
-                            $("#response").css("background-color","#FC0");  
-                            $("#response").text("Ingrese el n\u00famero de documento.");                     
-                            //$("#response").show();                            
-                            return;
-                        }
-                        var params = "?tipoDocumento="+tipoDocumento+"&numeroDocumento="+numeroDocumento;
-                        $.ajax({
-                            url: 'http://app.onp.gob.pe/WSMovilesQA/MAFServiceServlet'+params,
-                            cache: true,
-                            type: 'GET',
-                            async: false, // must be set to false
-                            success: function (data, success) {
-                                //$("#response").show();
-                                $("#response").css("background-color","#c8d8ab");
-                                var resultado = data.resultado;
-                                if(resultado == 'ONP')                              
-                                    $("#response").text("Ud. est\u00e1 afiliado a la ONP.");
-                                else if(resultado == 'SPP')
-                                    $("#response").text("Ud. est\u00e1 afiliado al Sistema Privado de Pensiones.");
-                                else if(resultado == "NOINFO")
-                                    $("#response").text("No contamos con informaci\u00f3n de su Sistema Previsional.");
-                                else
-                                    $("#response").text("Ocurri\u00f3 un error inesperado.");
-                            },
-                            dataType: 'jsonp',
-                            error :function( jqxhr, textStatus, error ) { 
-                                //var err = textStatus + ', ' + error;
-                                //alert(err);
-                            },
-                            complete: function (jqxhr, textStatus ){
-                                //alert( "complete: " + JSON.stringify(jqxhr)+" "+ textStatus );
-                            }
-                        });                 
-                    });			
+                    });  
+                });
+
             });
 
         </script>
@@ -154,7 +167,7 @@
                     <tr>
                         <td>
                             <div class="contacto_contenido"><br />
-                            Si usted desea realizar alguna consulta telefónica, h&aacute;galo a trav&eacute;s de nuestro servicio ONPTEL de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. donde nuestro personal especializado atender&aacute; su consulta. Lima y provincias: 595-0510 / 0-801-12345 (costo de llamada local).
+                            Si usted desea realizar alguna consulta telefónica, h&aacute;galo a trav&eacute;s de nuestro servicio ONPTEL de lunes a viernes en el horario de 08:00 a.m. a 05:00 p.m. donde nuestro personal especializado atender&aacute; su consulta. Lima y provincias: <a href="tel:5950510">595-0510</a> / <a href="tel:080112345">0-801-12345</a> (costo de llamada local).
                             </div>
                         </td>
                     </tr>
@@ -174,7 +187,7 @@
                     </tr>   
                     <tr>
                         <td>
-                            <a href="http:www.onp.gob.pe" data-role="button" rel="external">IR A LA WEB</a>
+                            <a href="http://www.onp.gob.pe" data-role="button" rel="external">IR A LA WEB</a>
                         </td>
                     </tr>           
                     <tr>
@@ -195,7 +208,7 @@
             <div data-role="content" id="servicios-content" align="center">
                 <a href="#afiliado"><img src="images/icon_estoy_afiliado_out320x480.png" id="imgServicio" /></a><br /><br />
                 <strong>&iquest;Estoy Afiliado?</strong><br />
-                Consulta si est&aacute;s en ONP
+                Consulta si est&aacute;s en la ONP
             </div>            
             <div data-role="footer">
                 <h4>Mobile ONP &copy; Copyright 2014</h4>
